@@ -1,6 +1,6 @@
 
 # tokentell
-## Calculate (badly) how much a text file will use of your LLM's context window
+> Calculate (badly) how much a text file will use of your LLM's context window
 
 
 This crude script attempts to give an indication if a text file will fit in a LLM's context window. 
@@ -22,29 +22,48 @@ And voila! You get a detailed report on the model, the file, the file size (assu
 
 There's no magic. You define the model size at the start of the file. 
 
-Example output: 
+Example output run as a script: 
 ```bash
-$  tokentell.sh gpt3 /etc/lsb-release 
+$ tokentell.sh gpt3 /etc/lsb-release 
 Model: gpt3
 File: /etc/lsb-release
 File Size: 109 bytes (assuming 1 byte = 1 token)
 Percentage: 5% of gpt3's context window.
 ```
-Wait, that can't be right? Hm.
+
+Well, as a function isn't really different: 
+```bash
+$ source /home/mikal/bin/tokentell.sh
+Usage: tokentell <model_name> <file_path>
+$ tokentell gpt3 /etc/mime.types
+Model: gpt3
+File: /etc/mime.types
+File Size: 72029 bytes (assuming 1 byte = 1 token)
+Percentage: 3517% of gpt3's context window.
+```
+
+Hm, can those values be correct? Hm.
 
 ## Define your models
 tokentell is pretty knowledgeable about models. It supports:
 
-    gpt2: Good old GPT-2, with a context window of 117,000 tokens.
-    gpt3: The legendary GPT-3, but it's a bit stingy with a context window of only 2048 tokens.
-    claude2: Claude2, the newcomer with a generous context window of 100,000 tokens.
 
+["gpt3"]=2048
+["llama1"]=2048
+["llama2"]=4096
+["gpt4"]=8192
+["gpt432k"]=32768
+["claude2"]=100000
+["gpt2"]=117000
+
+I dunno for sure about the values, google or a chatbot told me =)
 
 ## Contributing
 
-tokentell is perfect as is. 
+tokentell is perfect as is, but sure, fine, I don't care. 
 
 ### License
 
 tokentell is free as in free speech, free beer, and free of responsibility. Use it as you wish at your own risk.
-Calculate (badly) how much a text file will use of your LLM's context window
+
+
